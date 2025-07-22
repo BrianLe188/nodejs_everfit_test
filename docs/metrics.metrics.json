@@ -1,0 +1,114 @@
+[{
+  "_id": {
+    "$oid": "687f59639b307f8bdd8e88eb"
+  },
+  "user_id": "123",
+  "type": "distance",
+  "value": 5.2,
+  "unit": "inch",
+  "date": {
+    "$date": "2025-07-22T09:26:59.613Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-22T09:26:59.613Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-22T09:26:59.613Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687f59c99b307f8bdd8e88ed"
+  },
+  "user_id": "456",
+  "type": "distance",
+  "value": 1000,
+  "unit": "meter",
+  "date": {
+    "$date": "2025-07-21T08:00:00.000Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-22T09:28:41.556Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-22T09:28:41.556Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687f59eb9b307f8bdd8e88ef"
+  },
+  "user_id": "123",
+  "type": "temperature",
+  "value": 98.6,
+  "unit": "f_temp",
+  "date": {
+    "$date": "2025-07-20T10:00:00.000Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-22T09:29:15.829Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-22T09:29:15.829Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687f5b75f339ea5e90465789"
+  },
+  "user_id": "123",
+  "type": "temperature",
+  "value": 98.6,
+  "unit": "f_temp",
+  "date": {
+    "$date": "2025-07-20T10:00:00.000Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-22T09:35:49.524Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-22T09:35:49.524Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687f5e2ec1a7678cf59022db"
+  },
+  "user_id": "123",
+  "type": "distance",
+  "value": 98.6,
+  "unit": "yard",
+  "date": {
+    "$date": "2025-07-20T10:00:00.000Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-22T09:47:26.441Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-22T09:47:26.441Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "687f61adfd4d3481627337c2"
+  },
+  "user_id": "123",
+  "type": "distance",
+  "value": 98.6,
+  "unit": "yard",
+  "date": {
+    "$date": "2025-07-20T10:00:00.000Z"
+  },
+  "createdAt": {
+    "$date": "2025-07-22T10:02:21.652Z"
+  },
+  "updatedAt": {
+    "$date": "2025-07-22T10:02:21.652Z"
+  },
+  "__v": 0
+}]
