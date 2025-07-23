@@ -27,6 +27,12 @@ db.createCollection("metrics")
 
 2. Import the fake data from **docs/metrics.metrics.json** into **metrics** collection
 
+3. Add this to .env
+
+```sh
+MONGO_URI="mongodb://localhost:27017/metrics"
+```
+
 ## RUN TEST
 
 ```sh
