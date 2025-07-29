@@ -1,11 +1,22 @@
-import { RESPONSE_MESSAGE } from "@/constants/message";
 import { Response } from "express";
 import * as metricService from "@/services/metric.service";
 import { AddMetricRequest, MetricQueryRequest } from "@/types/metric";
+import {
+  AddMetricSchema,
+  GetChartDataSchema,
+  GetMetricByTypeSchema,
+} from "@/validators/metric.validator";
+import { errorHandler, successHandler } from "@/utils/error-handling";
 
 export async function addMetric(req: AddMetricRequest, res: Response) {
   try {
-    const { user_id, type, value, unit, date } = req.body;
+    const validateResult = AddMetricSchema.safeParse(req.body);
+
+    if (!validateResult.success) {
+      return errorHandler(res, validateResult.error, 400);
+    }
+
+    const { user_id, type, value, unit, date } = validateResult.data;
 
     const metric = await metricService.createMetric({
       user_id,
@@ -15,16 +26,24 @@ export async function addMetric(req: AddMetricRequest, res: Response) {
       date,
     });
 
-    res.status(201).json(metric);
+    successHandler(res, 201, metric);
   } catch (error) {
-    res.status(400).json({ error: RESPONSE_MESSAGE.SOMETHING_WENT_WRONG });
+    errorHandler(res, error);
   }
 }
 
 export async function getMetricsByType(req: MetricQueryRequest, res: Response) {
   try {
-    const { user_id, unit } = req.query;
-    const { type } = req.params;
+    const validateResult = GetMetricByTypeSchema.safeParse({
+      ...req.query,
+      ...req.params,
+    });
+
+    if (!validateResult.success) {
+      return errorHandler(res, validateResult.error, 400);
+    }
+
+    const { user_id, unit, type } = validateResult.data;
 
     const metrics = await metricService.getMetricsByType(
       type,
@@ -32,16 +51,24 @@ export async function getMetricsByType(req: MetricQueryRequest, res: Response) {
       unit,
     );
 
-    res.json(metrics);
+    successHandler(res, 200, metrics);
   } catch (error) {
-    res.status(400).json({ error: RESPONSE_MESSAGE.SOMETHING_WENT_WRONG });
+    errorHandler(res, error);
   }
 }
 
 export async function getChartData(req: MetricQueryRequest, res: Response) {
   try {
-    const { user_id, unit, period = "1month" } = req.query;
-    const { type } = req.params;
+    const validateResult = GetChartDataSchema.safeParse({
+      ...req.query,
+      ...req.params,
+    });
+
+    if (!validateResult.success) {
+      return errorHandler(res, validateResult.error, 400);
+    }
+
+    const { user_id, unit, period = "1month", type } = validateResult.data;
 
     const data = await metricService.getChartData(
       type,
@@ -50,8 +77,8 @@ export async function getChartData(req: MetricQueryRequest, res: Response) {
       period,
     );
 
-    res.json(data);
+    successHandler(res, 200, data);
   } catch (error) {
-    res.status(400).json({ error: RESPONSE_MESSAGE.SOMETHING_WENT_WRONG });
+    errorHandler(res, error);
   }
 }
