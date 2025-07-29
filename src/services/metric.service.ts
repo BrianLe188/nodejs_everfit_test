@@ -3,6 +3,7 @@ import { EMetricType, IMetricInput } from "@/types/metric";
 import { DistanceUnit, TemperatureUnit } from "@/types/unit";
 import { convertDistance, convertTemperature } from "@/utils/unit-conversion";
 import { subMonths, startOfDay } from "date-fns";
+import metricRepository from "@/repositories/metric.repository";
 
 function convertValueByType(
   type: EMetricType,
@@ -20,14 +21,7 @@ function convertValueByType(
 }
 
 export async function createMetric(input: IMetricInput) {
-  const { user_id, type, value, unit, date } = input;
-  return await Metric.create({
-    user_id,
-    type,
-    value,
-    unit,
-    date: new Date(date),
-  });
+  return await metricRepository.create(input);
 }
 
 export async function getMetricsByType(
@@ -35,7 +29,21 @@ export async function getMetricsByType(
   user_id: string,
   unit?: DistanceUnit | TemperatureUnit,
 ) {
-  const metrics = await Metric.find({ user_id, type }).sort({ date: 1 });
+  const metrics = await metricRepository.find(
+    { user_id, type },
+    {
+      user_id: 1,
+      type: 1,
+      value: 1,
+      unit: 1,
+      date: 1,
+    },
+    {
+      sort: {
+        date: 1,
+      },
+    },
+  );
 
   if (!unit) return metrics;
 
@@ -56,11 +64,21 @@ export async function getChartData(
   const months = parseInt(period.replace("month", "")) || 1;
   const from = subMonths(now, months);
 
-  const metrics = await Metric.find({
-    user_id,
-    type,
-    date: { $gte: from, $lte: now },
-  }).sort({ date: -1 });
+  const metrics = await metricRepository.find(
+    {
+      user_id,
+      type,
+      date: { $gte: from, $lte: now },
+    },
+    {
+      user_id: 1,
+      type: 1,
+      value: 1,
+      unit: 1,
+      date: 1,
+    },
+    { sort: { date: -1 } },
+  );
 
   const latestPerDay = new Map<string, (typeof metrics)[0]>();
 

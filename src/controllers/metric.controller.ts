@@ -23,7 +23,7 @@ export async function addMetric(req: AddMetricRequest, res: Response) {
       type,
       value,
       unit,
-      date,
+      date: new Date(date),
     });
 
     successHandler(res, 201, metric);

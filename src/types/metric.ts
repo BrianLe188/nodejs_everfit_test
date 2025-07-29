@@ -11,7 +11,7 @@ export interface IMetricInput {
   type: EMetricType;
   value: number;
   unit: string;
-  date: string;
+  date: Date;
 }
 
 export interface MetricQuery {

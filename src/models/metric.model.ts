@@ -1,8 +1,17 @@
 import { COLLECTION_NAME } from "@/constants/coll-name";
 import { EMetricType } from "@/types/metric";
+import { IBaseDocument } from "@/utils/base-repository";
 import mongoose from "mongoose";
 
-const metricSchema = new mongoose.Schema(
+export interface IMetric extends IBaseDocument {
+  user_id: string;
+  date: Date;
+  type: EMetricType;
+  value: number;
+  unit: string;
+}
+
+const metricSchema = new mongoose.Schema<IMetric>(
   {
     user_id: { type: String, required: true },
     type: { type: String, enum: EMetricType, required: true },
@@ -15,4 +24,7 @@ const metricSchema = new mongoose.Schema(
   },
 );
 
-export const Metric = mongoose.model(COLLECTION_NAME.METRICS, metricSchema);
+export const Metric = mongoose.model<IMetric>(
+  COLLECTION_NAME.METRICS,
+  metricSchema,
+);
